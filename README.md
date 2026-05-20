@@ -88,6 +88,7 @@ ros2 launch gz_sensor_bridge sensor_bridges.launch.py \
   drone_model:=x500_mono_cam_down_0 \
   rover_model:=explorer_ackermann_rover_1
 ```
+*조심할게 world:=lwan \ 여기서 맵 뭘 선택하냐에 따라 바꿔줘야 댐.*
 
 ## ArUco Detector
 
@@ -96,6 +97,7 @@ ArUco marker detector 노드를 실행
 ```bash
 ros2 launch ugv_description aruco_detector.launch.py use_sim_time:=true
 ```
+*잘 dect되는지 확인하는 명령어 ros2 topic echo /drone/aruco/pose *
 
 ## 정밀착륙 노드 실행
 
