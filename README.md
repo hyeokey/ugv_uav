@@ -130,6 +130,8 @@ ros2 launch ugv_description lidar_local_planner.launch.py \
   auto_offboard:=true \
   auto_arm:=true
 ```
+## <rviz2 띄우기>
+ros2 launch ugv_description ugv_rviz_tf.launch.py rviz:=true
 
 ## RViz Marker Topic
 
@@ -140,5 +142,3 @@ ros2 launch ugv_description lidar_local_planner.launch.py \
 ```
 
 빨간 마커는 QGC/global 최종 목표점, 초록 마커는 로컬 플래너가 현재 추종하는 local target
-
-근데 이 부분이 문제가 있음 안나옴. 
