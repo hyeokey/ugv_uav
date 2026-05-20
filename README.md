@@ -3,6 +3,42 @@
 PX4 Gazebo 시뮬레이션에서 카메라가 달린 드론, Ackermann rover, ArUco detector,
 정밀착륙 노드, LiDAR 기반 로컬 플래너를 실행하는 명령어 모음입니다.
 
+## px4_msgs 설치
+
+정밀착륙 노드와 로컬 플래너처럼 ROS 2에서 PX4 메시지를 사용하는 노드는 `px4_msgs`가 필요합니다.
+팀원은 이 워크스페이스의 `src`에 `px4_msgs`를 받은 뒤 같이 빌드하면 됩니다.
+
+```bash
+cd ~/ugv_uav_ws/src
+git clone https://github.com/PX4/px4_msgs.git
+
+cd ~/ugv_uav_ws
+source /opt/ros/humble/setup.bash
+colcon build --symlink-install
+source install/setup.bash
+```
+
+이미 `src/px4_msgs`가 있으면 clone은 생략하고 빌드만 다시 실행합니다.
+
+```bash
+cd ~/ugv_uav_ws
+source /opt/ros/humble/setup.bash
+colcon build --symlink-install
+source install/setup.bash
+```
+
+설치 확인:
+
+```bash
+ros2 pkg prefix px4_msgs
+```
+
+정상 예시:
+
+```text
+/home/dong/ugv_uav_ws/install/px4_msgs
+```
+
 ## 공통 ROS 환경 설정
 
 ROS 2 노드를 실행하는 터미널마다 필요한 workspace를 source 합니다.
