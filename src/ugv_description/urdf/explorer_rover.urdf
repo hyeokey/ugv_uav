@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+<robot name="explorer_rover">
+  <material name="dark">
+    <color rgba="0.08 0.09 0.10 1.0"/>
+  </material>
+  <material name="body">
+    <color rgba="0.72 0.76 0.70 1.0"/>
+  </material>
+  <material name="payload">
+    <color rgba="0.84 0.86 0.82 1.0"/>
+  </material>
+  <material name="orange">
+    <color rgba="0.95 0.36 0.08 1.0"/>
+  </material>
+  <material name="black">
+    <color rgba="0.015 0.015 0.015 1.0"/>
+  </material>
+  <material name="marker">
+    <color rgba="1.0 1.0 1.0 1.0"/>
+  </material>
+
+  <link name="base_link">
+    <visual name="lower_chassis">
+      <origin xyz="0 0 0.24" rpy="0 0 0"/>
+      <geometry>
+        <box size="1.18 0.52 0.12"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>
+    <visual name="upper_hull">
+      <origin xyz="-0.08 0 0.37" rpy="0 0 0"/>
+      <geometry>
+        <box size="1.02 0.50 0.18"/>
+      </geometry>
+      <material name="body"/>
+    </visual>
+    <visual name="front_payload_bay">
+      <origin xyz="0.42 0 0.43" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.24 0.34 0.16"/>
+      </geometry>
+      <material name="payload"/>
+    </visual>
+    <visual name="front_bumper">
+      <origin xyz="0.63 0 0.23" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.06 0.62 0.10"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <visual name="rear_bumper">
+      <origin xyz="-0.63 0 0.23" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.06 0.62 0.10"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+    <visual name="camera_body">
+      <origin xyz="0.56 0 0.45" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.08 0.16 0.09"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <visual name="aruco_marker">
+      <origin xyz="-0.20 0 0.464" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.32 0.32 0.004"/>
+      </geometry>
+      <material name="marker"/>
+    </visual>
+  </link>
+
+  <link name="lidar_mount_link">
+    <visual name="lidar_base">
+      <origin xyz="0 0 0.0205" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.06 0.06 0.041"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <visual name="lidar_head">
+      <origin xyz="0 0 0.055" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.04" length="0.05"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+
+  <joint name="base_to_lidar_mount" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar_mount_link"/>
+    <origin xyz="0.42 0 0.51" rpy="0 0 0"/>
+  </joint>
+
+  <link name="lidar_sensor_link"/>
+
+  <joint name="lidar_mount_to_lidar_sensor" type="fixed">
+    <parent link="lidar_mount_link"/>
+    <child link="lidar_sensor_link"/>
+    <origin xyz="0 0 0.055" rpy="0 0 0"/>
+  </joint>
+
+  <link name="ugv_lidar"/>
+
+  <joint name="lidar_sensor_to_ugv_lidar" type="fixed">
+    <parent link="lidar_sensor_link"/>
+    <child link="ugv_lidar"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="aruco_marker_link"/>
+
+  <joint name="base_to_aruco_marker" type="fixed">
+    <parent link="base_link"/>
+    <child link="aruco_marker_link"/>
+    <origin xyz="-0.20 0 0.464" rpy="0 0 0"/>
+  </joint>
+
+  <link name="lf_steering_link"/>
+  <joint name="base_to_lf_steering" type="fixed">
+    <parent link="base_link"/>
+    <child link="lf_steering_link"/>
+    <origin xyz="0.38 0.36 0.16" rpy="0 0 0"/>
+  </joint>
+
+  <link name="rf_steering_link"/>
+  <joint name="base_to_rf_steering" type="fixed">
+    <parent link="base_link"/>
+    <child link="rf_steering_link"/>
+    <origin xyz="0.38 -0.36 0.16" rpy="0 0 0"/>
+  </joint>
+
+  <link name="lf_wheel_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57079632679 0 0"/>
+      <geometry>
+        <cylinder radius="0.16" length="0.12"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="lf_steering_to_lf_wheel" type="fixed">
+    <parent link="lf_steering_link"/>
+    <child link="lf_wheel_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="rf_wheel_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57079632679 0 0"/>
+      <geometry>
+        <cylinder radius="0.16" length="0.12"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="rf_steering_to_rf_wheel" type="fixed">
+    <parent link="rf_steering_link"/>
+    <child link="rf_wheel_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="lb_wheel_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57079632679 0 0"/>
+      <geometry>
+        <cylinder radius="0.16" length="0.12"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="base_to_lb_wheel" type="fixed">
+    <parent link="base_link"/>
+    <child link="lb_wheel_link"/>
+    <origin xyz="-0.38 0.36 0.16" rpy="0 0 0"/>
+  </joint>
+
+  <link name="rb_wheel_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57079632679 0 0"/>
+      <geometry>
+        <cylinder radius="0.16" length="0.12"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="base_to_rb_wheel" type="fixed">
+    <parent link="base_link"/>
+    <child link="rb_wheel_link"/>
+    <origin xyz="-0.38 -0.36 0.16" rpy="0 0 0"/>
+  </joint>
+</robot>

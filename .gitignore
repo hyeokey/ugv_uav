@@ -1,0 +1,12 @@
+build/
+install/
+log/
+
+.vscode/
+.agents/
+.codex/
+
+__pycache__/
+*.py[cod]
+
+.colcon/
